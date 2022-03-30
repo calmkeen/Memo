@@ -11,6 +11,7 @@ struct MemoList: View {
     @State var MemoListData = MemoListDetail
     //뷰 이동
     @State private var showNew = false
+
     var body: some View {
         NavigationView{
             VStack{
@@ -18,13 +19,16 @@ struct MemoList: View {
                     ForEach(MemoListData, id: \.self){ memo in
                         HStack{
                             Text(memo.id)
-                            Text(memo.context)
-                            Text(memo.createDay)
-                            Text(memo.modificationDay)
+                            Text(memo.context.prefix(5))
+                                
+//                            Text(memo.createDay)
+//                            Text(memo.modificationDay)
                         }
                     }
                     .onDelete(perform: removeRows)
                 }
+                
+                
                 //.navigationBarItems(leading: EditButton())
                 
             }

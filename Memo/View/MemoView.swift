@@ -7,9 +7,10 @@
 
 import SwiftUI
 
-struct MemoView: View {
-    //var Memo : String
-    @State private var MemoText: String = ""
+struct MemoView: View{
+    //@ObservedObject var MemoData: MemoData
+    @State var MemoText = ""
+    
     var body: some View {
         NavigationView{
             VStack{
@@ -17,6 +18,15 @@ struct MemoView: View {
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitle("메모장", displayMode: .inline)
+        }
+        .toolbar{
+            ToolbarItem(placement: .bottomBar){
+                Button{
+                    
+                }label: {
+                    Image(systemName: "pencil")
+                }
+            }
         }
     }
 }

@@ -10,9 +10,10 @@ import SwiftUI
 
 
 struct Memo: Identifiable,Hashable {
+
     var id: String
     var context: String
-    var createDay: String
-    var modificationDay: String
+    var createDay: DateFormatter
+    var modificationDay: DateFormatter
 }
 
