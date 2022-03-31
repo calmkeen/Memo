@@ -8,33 +8,24 @@
 import SwiftUI
 
 struct MemoList: View {
-    @State var MemoListData = MemoListDetail
+    @EnvironmentObject var MemoList: MemoStore
+    @EnvironmentObject var dateFormatter: DateFormatter
     //뷰 이동
     @State private var showNew = false
 
     var body: some View {
         NavigationView{
-            VStack{
                 List{
-                    ForEach(MemoListData, id: \.self){ memo in
-                        HStack{
-                            Text(memo.id)
-                            Text(memo.context.prefix(5))
-                                
-//                            Text(memo.createDay)
-//                            Text(memo.modificationDay)
-                        }
+                    ForEach(MemoList.list){ memo in
+                        MemoCell(memo: memo)
                     }
-                    .onDelete(perform: removeRows)
+                    //.onDelete(perform: delete)
                 }
-                
-                
                 //.navigationBarItems(leading: EditButton())
-                
-            }
             .navigationTitle("메모")
             .background(
-                NavigationLink(destination:  MemoView(), isActive: $showNew) { EmptyView()
+                NavigationLink(destination:  MemoView(showNew: self.$showNew)
+                               , isActive: $showNew) { EmptyView()
                 }
             )
             .toolbar {
@@ -47,19 +38,31 @@ struct MemoList: View {
                 }
                 
             }
-            //                ToolbarItem(placement: .bottomBar){
-            //                    Button{
-            //                        EditButton(MemoListData)
-            //                    }label: {
-            //                        Image(systemName: "pencil").foregroundColor(.yellow)
-            //                    }
-            //                }
+            .environmentObject(self.MemoList)
         }
     }
 }
 
+//다른 방식 navigationitem 같은걸로 할경우
+//fileprivate struct ModalButoon: View{
+//    @Binding var show: Bool
+//
+//
+//    var body: some View{
+//        Button {
+//            self.show = true
+//        } label: {
+//            Image(systemName: "plus")
+//        }
+//
+//    }
+//}
+
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MemoList()
+            .environmentObject(MemoStore())
+            .environmentObject(DateFormatter.MemoDateFormatter)
+//
     }
 }

@@ -9,11 +9,23 @@ import Foundation
 import SwiftUI
 
 
-struct Memo: Identifiable,Hashable {
+class Memo: Identifiable,ObservableObject {
 
-    var id: String
-    var context: String
-    var createDay: DateFormatter
-    var modificationDay: DateFormatter
+    var id: UUID
+    @Published var context: String
+    let createDay: Date
+    var modificationDay: Date
+    
+    init(id: UUID = UUID(), context: String, createDay: Date = Date(), modificationDay: Date = Date()){
+        self.id = id
+        self.context = context
+        self.createDay = createDay
+        self.modificationDay = modificationDay
+    }
+}
+extension Memo: Equatable {
+    static func == (lhs: Memo, rhs: Memo) -> Bool {
+        return lhs.id == rhs.id
+    }
 }
 

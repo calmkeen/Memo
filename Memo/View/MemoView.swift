@@ -10,29 +10,55 @@ import SwiftUI
 struct MemoView: View{
     //@ObservedObject var MemoData: MemoData
     @State var MemoText = ""
+    @Binding var showNew: Bool
+    @EnvironmentObject var store: MemoStore
     
     var body: some View {
         NavigationView{
             VStack{
+                
                 TextField("", text: $MemoText)
+                    .frame(maxWidth: .infinity, maxHeight: .infinity)
+                    
             }
             .frame(maxWidth: .infinity, maxHeight: .infinity)
             .navigationBarTitle("메모장", displayMode: .inline)
         }
         .toolbar{
             ToolbarItem(placement: .bottomBar){
-                Button{
+                Save(show: $showNew, MemoText: $MemoText)
                     
+                Button{
+                    self.showNew = true
                 }label: {
-                    Image(systemName: "pencil")
+                    Image(systemName: "pencil.and.outline")
                 }
             }
         }
     }
 }
 
+fileprivate struct Save: View{
+    @Binding var show : Bool
+    
+    @EnvironmentObject var store : MemoStore
+    @Binding var MemoText: String
+    
+    var body : some View{
+        Button {
+            self.store.insert(memo: self.MemoText)
+            show.self = false
+        } label: {
+            Image(systemName: "pencil")
+        }
+
+    }
+}
+
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
-        MemoView()
+        MemoView(showNew: .constant(false))
+            .environmentObject(MemoStore())
+            
     }
 }
