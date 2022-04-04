@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct MemoList: View {
-    @EnvironmentObject var MemoList: MemoStore
+    @EnvironmentObject var MemoList: MemoFunc
     @EnvironmentObject var dateFormatter: DateFormatter
     //뷰 이동
     @State private var showNew = false
@@ -61,7 +61,7 @@ struct MemoList: View {
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         MemoList()
-            .environmentObject(MemoStore())
+            .environmentObject(MemoFunc())
             .environmentObject(DateFormatter.MemoDateFormatter)
 //
     }

@@ -12,7 +12,7 @@ struct MemoApp: App {
     var body: some Scene {
         WindowGroup {
             MemoList()
-                .environmentObject(MemoStore())
+                .environmentObject(MemoFunc())
                 .environmentObject(DateFormatter.MemoDateFormatter)
         }
     }

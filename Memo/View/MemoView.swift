@@ -11,7 +11,7 @@ struct MemoView: View{
     //@ObservedObject var MemoData: MemoData
     @State var MemoText = ""
     @Binding var showNew: Bool
-    @EnvironmentObject var store: MemoStore
+    @EnvironmentObject var store: MemoFunc
     
     var body: some View {
         NavigationView{
@@ -41,7 +41,7 @@ struct MemoView: View{
 fileprivate struct Save: View{
     @Binding var show : Bool
     
-    @EnvironmentObject var store : MemoStore
+    @EnvironmentObject var store : MemoFunc
     @Binding var MemoText: String
     
     var body : some View{
@@ -58,7 +58,7 @@ fileprivate struct Save: View{
 struct MemoView_Previews: PreviewProvider {
     static var previews: some View {
         MemoView(showNew: .constant(false))
-            .environmentObject(MemoStore())
+            .environmentObject(MemoFunc())
             
     }
 }
